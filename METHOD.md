@@ -53,13 +53,25 @@ data sources and licenses are listed in DATA_DISCLOSURE.md.
 Independent multi-model screening (APEX 1.0/1.1 per-strain MIC, macrel + ai4amp AMP-probability
 consensus) showed the guided-demasking heads were adversarially exploited: the original top-100
 was dominated by Lys/Glu-rich heptad-repeat sequences. The top-100 was rebuilt deterministically:
-(1) composition gates (length 12-50, net charge >= +4, acidic fraction <= 5%, hydrophobic fraction
-30-75%, no homopolymers > 4); (2) predicted HC50 >= 25 uM; (3) (macrel+ai4amp)/2 AMP consensus
->= 0.3; (4) panel-mean APEX 1.0/1.1 MIC <= 100 uM over the 18/20 panel strains with APEX coverage
-(proxy mapping per panel.py); (5) Levenshtein reference screen vs antibacterial.fasta (cutoff 0.8);
-(6) rank by panel-mean APEX MIC (tie-breaks: HC50 desc, internal R desc, sequence); (7) greedy
-diversity selection (Levenshtein <= 0.85). Ranking uses the panel-strain mean, not the all-strain
-median, because the challenge assays the fixed 20-strain panel and medians over non-panel strains
-mask weak strains. Label provenance: panel oracle MIC columns are APEX-derived per-strain values
+1. composition gates (length 12-50, net charge >= +4, acidic fraction \<= 5%, hydrophobic fraction
+30-75%, no homopolymers > 4);
+
+2. predicted HC50 \>= 25 uM;
+
+3. (macrel+ai4amp)/2 AMP consensus \>= 0.3;
+
+ 4. panel-mean APEX 1.0/1.1 MIC \<= 100 uM over the 18/20 panel strains with APEX coverage
+(proxy mapping per panel.py);
+
+5. Levenshtein reference screen vs antibacterial.fasta (cutoff 0.8);
+
+6. Rank by panel-mean APEX MIC (tie-breaks: HC50 desc, internal R desc, sequence);
+
+7. Greedy diversity selection (Levenshtein <= 0.85). Ranking uses the panel-strain mean, not the all-strain median, because the challenge assays the fixed 20-strain panel and medians over non-panel strains
+mask weak strains.
+
+Label provenance: panel oracle MIC columns are APEX-derived per-strain values
 (damp_inference.py, kind=MIC_uM), so the re-rank re-aligns selection with the training-label
-definition. All steps deterministic. AI assistance (Biomni by Phylo) under human direction.
+definition. All steps deterministic. 
+
+AI assistance (Biomni by Phylo) under human direction.
